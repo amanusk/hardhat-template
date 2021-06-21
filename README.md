@@ -30,14 +30,6 @@ Compile the smart contracts with Hardhat:
 $ yarn compile
 ```
 
-### TypeChain
-
-Compile the smart contracts and generate TypeChain artifacts:
-
-```sh
-$ yarn build
-```
-
 ### Test
 
 Run the Mocha tests:
