@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "compile": "npx hardhat compile",
-    "test": "npx hardhat test"
+    "test": "npx hardhat test",
+    "coverage": "npx hardhat coverage --temp artifacts --network coverage"
   },
   "author": "",
   "license": "MIT",
@@ -24,6 +25,7 @@
     "ethers": "^5.3.1",
     "hardhat": "^2.3.3",
     "hardhat-gas-reporter": "^1.0.4",
+    "solidity-coverage": "^0.7.16",    
     "prettier": "^2.3.1",
     "prettier-plugin-solidity": "^1.0.0-beta.13",
     "solhint": "^3.3.6",

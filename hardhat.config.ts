@@ -11,6 +11,7 @@ import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-waffle";
+import "solidity-coverage";
 
 import "hardhat-gas-reporter";
 import "@nomiclabs/hardhat-etherscan";
@@ -71,11 +72,22 @@ const config: HardhatUserConfig = {
     kovan: createTestnetConfig("kovan"),
     rinkeby: createTestnetConfig("rinkeby"),
     ropsten: createTestnetConfig("ropsten"),
+    coverage: {
+      url: "http://127.0.0.1:9999", // Coverage launches its own ganache-cli client
+    },    
   },
   solidity: {
     compilers: [
       {
         version: "0.6.12",
+        settings: {
+          // Disable the optimizer when debugging
+          // https://hardhat.org/hardhat-network/#solidity-optimizer-support
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          }
+        }        
       },
       {
         version: "0.6.6",
