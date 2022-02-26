@@ -38,13 +38,19 @@ Run the Mocha tests:
 $ yarn test
 ```
 
+Run test with Solidity coverage report
+
+```sh
+$ yarn coverage
+```
+
 ### Deploy contract to netowrk (requires Mnemonic and infura API key)
 
 ```
 npx hardhat run --network rinkeby ./scripts/deploy.ts
 ```
 
-### Validate a contract with etherscan (requires API ke)
+### Validate a contract with etherscan (requires API key)
 
 ```
 npx hardhat verify --network <network> <DEPLOYED_CONTRACT_ADDRESS> "Constructor argument 1"
