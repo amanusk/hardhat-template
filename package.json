@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "compile": "npx hardhat compile",
-    "test": "npx hardhat test"
+    "test": "npx hardhat test",
+    "lint": "prettier --check .",
+    "fix": "prettier --write ."
   },
   "author": "",
   "license": "MIT",

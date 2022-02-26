@@ -57,4 +57,4 @@ npx hardhat verify --network <network> <DEPLOYED_CONTRACT_ADDRESS> "Constructor 
 
 ## Thanks
 
-If you like it than you soulda put a start ⭐ on it 
+If you like it than you soulda put a start ⭐ on it

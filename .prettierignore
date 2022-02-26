@@ -2,12 +2,7 @@ node_modules
 build
 typechain
 
-# Hardhat files
+#Hardhat files
 cache
 artifacts
 factories
-
-.env
-
-# Yarn files
-yarn-error.log
