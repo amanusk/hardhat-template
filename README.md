@@ -1,5 +1,9 @@
 # Solidity Template
 
+This is a basic hardhat template to get you started writing and compiling contract.
+The template is configured with some sensible defaults but tries to stay minimal.
+Many more plugins are available in the hardhat ecosystem, add them as you go.
+
 Uses
 
 - [Hardhat](https://github.com/nomiclabs/hardhat): compile and run the smart contracts on a local development network
@@ -57,4 +61,10 @@ npx hardhat verify --network <network> <DEPLOYED_CONTRACT_ADDRESS> "Constructor 
 
 ## Thanks
 
-If you like it than you soulda put a start ⭐ on it 
+If you like it than you shoulda put a start ⭐ on it
+
+Twitter: [@amanusk\_][https://twitter.com/amanusk_]
+
+## License
+
+MIT
