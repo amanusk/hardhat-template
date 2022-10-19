@@ -1,44 +1,39 @@
 import { ethers } from "hardhat";
-import chai from "chai";
-import { solidity } from "ethereum-waffle";
-
-chai.use(solidity);
-const { expect } = chai;
+import { expect } from "chai";
+import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 
 describe("Token", () => {
-  let tokenAddress: string;
-
-  beforeEach(async () => {
-    const [deployer] = await ethers.getSigners();
+  async function deployContracts() {
+    const [deployer, sender, receiver] = await ethers.getSigners();
     const tokenFactory = await ethers.getContractFactory("TestToken");
     const tokenContract = await tokenFactory.deploy();
-    tokenAddress = tokenContract.address;
 
     expect(await tokenContract.totalSupply()).to.eq(0);
-  });
+
+    return { deployer, sender, receiver, tokenContract };
+  }
   describe("Mint", async () => {
     it("Should mint some tokens", async () => {
-      const [deployer, user] = await ethers.getSigners();
-      const tokenFactory = await ethers.getContractFactory("TestToken");
-      const tokenInstance = tokenFactory.attach(tokenAddress).connect(deployer);
+      const { deployer, sender, receiver, tokenContract } = await loadFixture(deployContracts);
+
       const toMint = ethers.utils.parseEther("1");
 
-      await tokenInstance.mint(user.address, toMint);
-      expect(await tokenInstance.totalSupply()).to.eq(toMint);
+      await tokenContract.mint(sender.address, toMint);
+      expect(await tokenContract.totalSupply()).to.eq(toMint);
     });
   });
 
   describe("Transfer", async () => {
     it("Should transfer tokens between users", async () => {
-      const [deployer, sender, receiver] = await ethers.getSigners();
-      const tokenFactory = await ethers.getContractFactory("TestToken");
-      const deployerInstance = tokenFactory.attach(tokenAddress).connect(deployer);
+      const { deployer, sender, receiver, tokenContract } = await loadFixture(deployContracts);
+
+      let deployerInstance = tokenContract.connect(deployer);
       const toMint = ethers.utils.parseEther("1");
 
       await deployerInstance.mint(sender.address, toMint);
       expect(await deployerInstance.balanceOf(sender.address)).to.eq(toMint);
 
-      const senderInstance = tokenFactory.attach(tokenAddress).connect(sender);
+      const senderInstance = tokenContract.connect(sender);
       const toSend = ethers.utils.parseEther("0.4");
       await senderInstance.transfer(receiver.address, toSend);
 
@@ -46,20 +41,20 @@ describe("Token", () => {
     });
 
     it("Should fail to transfer with low balance", async () => {
-      const [deployer, sender, receiver] = await ethers.getSigners();
-      const tokenFactory = await ethers.getContractFactory("TestToken");
-      const deployerInstance = tokenFactory.attach(tokenAddress).connect(deployer);
+      const { deployer, sender, receiver, tokenContract } = await loadFixture(deployContracts);
+
+      let deployerInstance = tokenContract.connect(deployer);
       const toMint = ethers.utils.parseEther("1");
 
       await deployerInstance.mint(sender.address, toMint);
       expect(await deployerInstance.balanceOf(sender.address)).to.eq(toMint);
 
-      const senderInstance = tokenFactory.attach(tokenAddress).connect(sender);
+      const senderInstance = tokenContract.connect(sender);
       const toSend = ethers.utils.parseEther("1.1");
 
       // Notice await is on the expect
       await expect(senderInstance.transfer(receiver.address, toSend)).to.be.revertedWith(
-        "transfer amount exceeds balance",
+        "ERC20: transfer amount exceeds balance",
       );
     });
   });
