@@ -1,9 +1,6 @@
 import { HardhatUserConfig } from "hardhat/config";
 import { NetworkUserConfig } from "hardhat/types";
 import "@nomicfoundation/hardhat-toolbox";
-import "@nomicfoundation/hardhat-chai-matchers";
-import "@nomiclabs/hardhat-ethers";
-import "hardhat-gas-reporter";
 
 import { config as dotenvConfig } from "dotenv";
 import { resolve } from "path";
