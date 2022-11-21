@@ -1,6 +1,7 @@
 import { ethers } from "hardhat";
 import { expect } from "chai";
 import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
+import snapshotGasCost from "@uniswap/snapshot-gas-cost";
 
 describe("Token", () => {
   async function deployContracts() {
@@ -56,6 +57,22 @@ describe("Token", () => {
       await expect(senderInstance.transfer(receiver.address, toSend)).to.be.revertedWith(
         "ERC20: transfer amount exceeds balance",
       );
+    });
+  });
+  describe("gas tests", () => {
+    it("test gas cost of transfer", async () => {
+      const { deployer, sender, receiver, tokenContract } = await loadFixture(deployContracts);
+
+      let deployerInstance = tokenContract.connect(deployer);
+      const toMint = ethers.utils.parseEther("1");
+
+      await deployerInstance.mint(sender.address, toMint);
+      expect(await deployerInstance.balanceOf(sender.address)).to.eq(toMint);
+
+      const senderInstance = tokenContract.connect(sender);
+      const toSend = ethers.utils.parseEther("0.4");
+
+      await snapshotGasCost(senderInstance.transfer(receiver.address, toSend));
     });
   });
 });

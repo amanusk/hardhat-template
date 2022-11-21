@@ -17,7 +17,7 @@ Use the template by clicking the "Use this template" button at the top of the pa
 Before running any command, make sure to install dependencies:
 
 ```sh
-$ yarn install
+yarn install
 ```
 
 ### Compile
@@ -25,7 +25,7 @@ $ yarn install
 Compile the smart contracts with Hardhat:
 
 ```sh
-$ yarn compile
+yarn compile
 ```
 
 ### Test
@@ -33,13 +33,23 @@ $ yarn compile
 Run the tests:
 
 ```sh
-$ yarn test
+yarn test
+```
+
+#### Test gas costs
+
+To get a report of gas costs, set env `REPORT_GAS` to true
+
+To take a snapshot of the contract's gas costs
+
+```sh
+yarn test:gas
 ```
 
 ### Deploy contract to network (requires Mnemonic and Infura API key)
 
 ```
-npx hardhat run --network rinkeby ./scripts/deploy.ts
+npx hardhat run --network goerli ./scripts/deploy.ts
 ```
 
 ### Validate a contract with etherscan (requires API key)

@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Token gas tests test gas cost of transfer 1`] = `
+Object {
+  "calldataByteLength": 68,
+  "gasUsed": 52337,
+}
+`;
